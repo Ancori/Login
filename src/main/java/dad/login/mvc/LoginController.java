@@ -21,12 +21,13 @@ public class LoginController {
 	public LoginController() {
 		view.getUsuario().textProperty().bindBidirectional(model.usuarioProperty());
 		view.getContraseña().textProperty().bindBidirectional(model.contraseñaProperty());
+		view.getLdap().selectedProperty().bindBidirectional(model.checkboxProperty());
 		view.getAcceder().setOnAction(e -> onAcceder(e));
 		view.getCancelar().setOnAction(e -> onCancelar(e));
 	}
 
 	private void onAcceder(ActionEvent e) {
-		if (view.getLdap().isSelected()) {
+		if (model.isCheckbox()) {
 			boolean useLdap = true;
 			AuthService ldap = useLdap ? new LdapAuthService() : new FileAuthService();
 			try {
